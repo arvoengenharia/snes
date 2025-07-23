@@ -17,10 +17,10 @@ async function fetchRomList() {
   }
 }
 
-function loadRom(romPath) {
+function loadRom(romFileName) {
   const emulatorFrame = document.getElementById("emulatorFrame");
   emulatorFrame.style.display = "block";
-  emulatorFrame.src = `emulatorjs/?core=snes&rom=${encodeURIComponent(romPath)}`;
+  emulatorFrame.src = `emulatorjs/?core=snes&rom=emulatorjs/roms/${encodeURIComponent(romFileName)}`;
 }
 
 fetchRomList();

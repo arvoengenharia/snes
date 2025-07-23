@@ -6,12 +6,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>🎮 ROMs de Super Nintendo</h1>
+  <h1>🎮 Jogar ROM personalizada</h1>
 
   <div style="text-align: center; margin-bottom: 20px;">
     <input id="romInput"
            type="text"
-           placeholder="Cole o link direto da ROM (.smc, .sfc, .zip)"
+           placeholder="Cole o link da ROM hospedada (ex: /roms/ALADDIN.SMC)"
            style="width: 60%; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #555;">
     <button id="playButton"
             style="padding: 10px 20px; margin-left: 10px; font-size: 16px; cursor: pointer;">
@@ -28,6 +28,30 @@
           allowfullscreen>
   </iframe>
 
-  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const playButton = document.getElementById("playButton");
+      const romInput = document.getElementById("romInput");
+      const emulatorFrame = document.getElementById("emulatorFrame");
+
+      playButton.addEventListener("click", () => {
+        let romUrl = romInput.value.trim();
+
+        if (!romUrl) {
+          alert("Cole o link da ROM.");
+          return;
+        }
+
+        // Se for link completo do próprio GitHub Pages, limpa a parte do domínio
+        const localBase = "https://arvoengenharia.github.io/snes/";
+        if (romUrl.startsWith(localBase)) {
+          romUrl = romUrl.replace(localBase, "");
+        }
+
+        emulatorFrame.style.display = "block";
+        emulatorFrame.src = `emulatorjs/?core=snes&rom=${encodeURIComponent(romUrl)}`;
+      });
+    });
+  </script>
 </body>
 </html>

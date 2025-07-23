@@ -4,11 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const emulatorFrame = document.getElementById("emulatorFrame");
 
   playButton.addEventListener("click", () => {
-    const romUrl = romInput.value.trim();
+    let romUrl = romInput.value.trim();
 
     if (!romUrl) {
-      alert("Por favor, cole o link da ROM.");
+      alert("Cole o link da ROM.");
       return;
+    }
+
+    // Se colar um link completo do próprio GitHub Pages, simplifica
+    const localBase = "https://arvoengenharia.github.io/snes/";
+    if (romUrl.startsWith(localBase)) {
+      romUrl = romUrl.replace(localBase, "");
     }
 
     emulatorFrame.style.display = "block";

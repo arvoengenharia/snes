@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EmulatorJS Loader</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+    }
+    #emulator {
+      width: 100vw;
+      height: 100vh;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="emulator" allowfullscreen></iframe>
+
+  <script>
+    // Pega parâmetros da URL
+    const params = new URLSearchParams(window.location.search);
+    const core = params.get("core");
+    const rom = params.get("rom");
+
+    if (!core || !rom) {
+      document.body.innerHTML = "<h2 style='color:white; text-align:center;'>Parâmetros inválidos. Use ?core=xxx&rom=xxx</h2>";
+    } else {
+      // Define o src do iframe com base no núcleo e rom
+      const emulatorUrl = `../emulatorjs/index.html?core=${encodeURIComponent(core)}&rom=${encodeURIComponent(rom)}`;
+      document.getElementById("emulator").src = emulatorUrl;
+    }
+  </script>
+</body>
+</html>
